@@ -163,3 +163,4 @@ cython_debug/
 
 src/*
 LinkingInStyle.ipynb
+.DS_Store
