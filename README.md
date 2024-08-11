@@ -10,26 +10,27 @@ Maren H. Wehrheim, Pamela Osuna-Vargas, and Matthias Kaschube.
 
 
 ## Folder structure:
-
-├── data 
-    ├──lnw
-        ├── train
-        └── test
-    └── seg
-        ├── train
-            └── dogs
-                ├──features
-                ├── imgs
-                ├── labels
-                └── w
-        └── test
-            └── dogs
-                ├──features
-                ├── imgs
-                ├── labels
-                └── w
+```
+├── data
+│   ├── lnw
+│   │   ├── train
+│   │   └── test
+│   └── seg
+│       ├── train
+│       │   └── dogs
+│       │       ├──features
+│       │       ├── imgs
+│       │       ├── labels
+│       │       └── w
+│       └── test
+│           └── dogs
+│               ├──features
+│               ├── imgs
+│               ├── labels
+│               └── w
 ├── models
-    ├── sgxl
-    ├── classif
-    ├── lnw
-    └── seg
+│   ├── sgxl
+│   ├── classif
+│   ├── lnw
+│   └── seg
+```
