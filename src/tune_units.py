@@ -109,7 +109,7 @@ def run_systematic_tuning(classifier_name, dataset_name, n_steps, samples_per_cl
 
     assert os.path.exists(lnw_path), f"Linking network not found: {lnw_path}"
     with open(lnw_path, 'rb') as f:
-        linking_nw, mse = pickle.load(f)
+        linking_nw = pickle.load(f)
 
     ws_all, rs_all, class_idx = get_rs_for_tuning(G, encoder, dataset_name, samples_per_class, device=device)
 

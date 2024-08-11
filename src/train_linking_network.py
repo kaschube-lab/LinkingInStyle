@@ -46,7 +46,8 @@ def train_linking_nw(dataset_name, classifier_name, model_type='LR', n_samples=5
     ws = ws[idx]
     rs = rs[idx]
 
-    trained_nw = train_linear(rs, ws, model_type=model_type)
+    trained_nw, mse = train_linear(rs, ws, model_type=model_type)
+    print(f'MSE: {mse}')
     with open(nw_path, 'wb') as f:
         pickle.dump(trained_nw, f)
 
