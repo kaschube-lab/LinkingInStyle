@@ -1,12 +1,9 @@
 import os
 
-import matplotlib.pyplot as plt
-from matplotlib import widgets
-from matplotlib.colors import hsv_to_rgb
-
+import numpy as np
+import random
 import copy
 import cv2
-import numpy as np
 
 
 # %matplotlib widget
@@ -14,9 +11,7 @@ import matplotlib.pyplot as plt
 from matplotlib import widgets
 from matplotlib.colors import hsv_to_rgb
 
-import random
-import copy
-import cv2
+from src.metadata import SEG_LABELS
 
 class Labeller:
     def __init__(self, images, classes):
@@ -268,23 +263,24 @@ class Labeller:
 
 
 if __name__ == '__main__':
-    # the images to be labeled should be stored in a folder in this directory called images
-    # the corresponding labels will be added as numpy arrays in the folder 'labels'
-    img_names = os.listdir('./images/')
-    # if not os.path.exists('./labels'):
-    os.makedirs('./labels', exist_ok=True)
+    dataset_name = 'dogs'
 
-    # Segmentation classes. Adjust accroding to the data set
-    classes = ['background', 'legs', 'body', 'tail', 'tongue', 'eyes', 'nose', 'snout', 'ears', 'head']
+    # The images to segment should be stored in ./data/seg/train/{dataset_name}/features. 
+    feats_dir = os.path.join('data', 'seg', 'train', dataset_name, 'features')
+    labels_dir = os.path.join('data', 'seg', 'train', dataset_name, 'labels')
+    img_names = os.listdir(feats_dir)
+    os.makedirs(labels_dir, exist_ok=True)
+    seg_labels = SEG_LABELS[dataset_name]
+
     for img_name in img_names:
         if img_name == '.DS_Store':
             continue
-        img = cv2.imread(f'./images/{img_name}') 
+        img = cv2.imread(os.path.join(feats_dir, img_name))
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         
 
-        labeller = Labeller(img[None, ...], classes)
+        labeller = Labeller(img[None, ...], seg_labels)
 
         labels = labeller.get_labels()
         base_name = img_name.split('.')[0]
-        np.save(f'./labels/{base_name}.npy', labels)
+        np.save(os.path.join(feats_dir, f'{base_name}.npy'), labels)

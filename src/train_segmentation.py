@@ -1,5 +1,6 @@
 import sys
 import os
+import argparse
 import glob
 
 import numpy as np
@@ -69,3 +70,17 @@ def train_seg_model(dataset_name, n_epochs, model_size='S', img_size=128, device
     
     out_path = os.path.join('models', 'seg', f'FewShotSegmenter_{model_size}_{img_size}_{img_size}_{dataset_name}.pth')
     torch.save(net.state_dict(), out_path)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+                    prog='Train segmentation',
+                    description='Code to train the segmentation model')
+    parser.add_argument('-d', '--dataset_name', type=str, default='dogs', help='Name of the data set to use, here we added examples for dogs, fungi, birds, cars')
+    parser.add_argument('-n', '--n_epochs', type=int, default=100, help='how many epochs to train the model for')
+    parser.add_argument('--model_size', type=str, default='S', help='Size of the segmentation model. Possible parameters: S, M, L')
+    parser.add_argument('--img_size', type=int, default=128, help='Input image size')
+    parser.add_argument('--device', type=str, default='cuda', help='cuda or cpu')
+    args = parser.parse_args()
+    train_seg_model(args.dataset_name, args.n_epochs, model_size=args.model_size, img_size=args.img_size, device=args.device)
+    
