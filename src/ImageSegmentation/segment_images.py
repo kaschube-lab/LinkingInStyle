@@ -271,8 +271,8 @@ if __name__ == '__main__':
     # the images to be labeled should be stored in a folder in this directory called images
     # the corresponding labels will be added as numpy arrays in the folder 'labels'
     img_names = os.listdir('./images/')
-    if not os.path.exists('./labels'):
-        os.makedirs('./labels')
+    # if not os.path.exists('./labels'):
+    os.makedirs('./labels', exist_ok=True)
 
     # Segmentation classes. Adjust accroding to the data set
     classes = ['background', 'legs', 'body', 'tail', 'tongue', 'eyes', 'nose', 'snout', 'ears', 'head']
